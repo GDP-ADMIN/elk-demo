@@ -1,0 +1,50 @@
+upstream esbackend {
+    server elasticsearch:9200;
+}
+
+server {
+    listen       80 default_server;
+    server_name  _;
+    root         /var/www/html;
+    index index.html;
+
+    access_log  /var/log/nginx/kibana.access.log time_forwarded;
+    error_log   /var/log/nginx/kibana.error.log;
+
+    auth_basic "Restricted";
+    auth_basic_user_file /etc/nginx/keys/users.pwd;
+
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto https;
+    proxy_set_header Host $http_host;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    location ~ /\.ht {
+        deny  all;
+    }
+
+    location ~ ^/_aliases$ {
+        proxy_pass http://esbackend;
+    }
+
+    location ~ ^/.*/_aliases$ {
+        proxy_pass http://esbackend;
+    }
+
+    location ~ ^/_nodes$ {
+        proxy_pass http://esbackend;
+    }
+
+    location ~ ^/.*/_search$ {
+        proxy_pass http://esbackend;
+    }
+
+    location ~ ^/.*/_mapping {
+        proxy_pass http://esbackend;
+    }
+}
+
