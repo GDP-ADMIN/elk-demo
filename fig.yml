@@ -1,0 +1,18 @@
+es:
+    build: es-docker
+
+gitlist:
+    build: gitlist-docker
+
+kibana:
+    build: kibana-docker
+    links:
+        - es:elasticsearch
+
+logstash:
+    build: logstash-docker
+    command: --elasticsearch=elasticsearch
+    links:
+        - es:elasticsearch
+    volumes_from:
+        - gitlist
