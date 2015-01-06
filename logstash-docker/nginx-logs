@@ -1,0 +1,5 @@
+NGXUSERNAME [a-zA-Z\.\@\-\+_%]+
+NGXUSER %{NGXUSERNAME}
+NGXACCESS %{IPORHOST:clientip} %{NGXUSER:ident} %{NGXUSER:auth} \[%{HTTPDATE:timestamp}\] "%{WORD:verb} %{URIPATHPARAM:request} HTTP/%{NUMBER:httpversion}" %{NUMBER:response} (?:%{NUMBER:bytes:int}|-) (?:"(?:%{URI:referrer}|-)"|%{QS:referrer})(;|) %{QS:agent} "%{DATA:xforwardedfor} %{BASE10NUM:requestduration:float}"
+NGXERROR (?<timestamp>%{YEAR}/%{MONTHNUM}/%{MONTHDAY} %{TIME}) \[%{LOGLEVEL:loglevel}\] (?<pid>%{NONNEGINT}\#%{NONNEGINT}): %{DATA:errormessage}, client: %{IPORHOST:clientip}, server: %{URIHOST:server}, request: "%{WORD:verb} %{URIPATHPARAM:request} HTTP/%{NUMBER:httpversion}", host: "%{URIHOST:httphost}", referrer: (?:"(?:%{URI:referrer}|-)"|%{QS:referrer})
+NGXERRORGREEDY (?<timestamp>%{YEAR}/%{MONTHNUM}/%{MONTHDAY} %{TIME}) \[%{LOGLEVEL:loglevel}\] (?<pid>%{NONNEGINT}\#%{NONNEGINT}): %{GREEDYDATA:errormessage}
