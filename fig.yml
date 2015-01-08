@@ -3,11 +3,15 @@ es:
 
 gitlist:
     build: gitlist-docker
+    ports:
+        - "80:80"
 
 kibana:
     build: kibana-docker
     links:
         - es:elasticsearch
+    ports:
+        - "8080:80"
 
 logstash:
     build: logstash-docker
