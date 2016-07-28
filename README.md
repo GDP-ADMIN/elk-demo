@@ -2,20 +2,20 @@
 
 [ELK Stack] is combination of three great softwares that are [Elasticsearch], [Logstash], and [Kibana] that form end-to-end solution for logging infrastructure. Elasticsearch serves to index log data. Logstash serves to parse, transform, and transport log data. While Kibana serves to provide slick dashboard. ELK Stack is open source and state of the art of host your own logging solution. This demo repository is responsible to create demo architecture as follow:  
 <!-- language: lang-none -->
-    -----------          ----------
-    | Gitlist |          | Kibana |
-    -----------          ----------
-         |                   ^
-         v                   |
-    -----------       -----------------
-    | Logstash | ---> | Elasticsearch | 
-    -----------       -----------------
+    -----------          ----------       ------------
+    | Gitlist |  --->   | Log File | ---> | Logstash |
+    -----------          ----------       ------------
+                                               |
+                                               v
+                    -----------       -----------------
+                    | Kibana | <--- | Elasticsearch | 
+                    -----------       -----------------
 ## Quickstart
-1. [Install Docker]
-2. [Install Fig]
+1. [Install Docker Engine]
+2. [Install Docker Compose]
 3. Clone this repo, `git clone https://github.com/GDP-ADMIN/elk-demo`
-4. Run Fig, `cd elk-demo && fig up`. (It takes sometime for this command to finish at first run)
-5. Visit Gitlist at http://localhost/
+4. Start all containers, `cd elk-demo && docker-compose up`. (It takes sometime for this command to finish at first run)
+5. Visit Gitlist at http://localhost:8090/
 6. Visit Kibana at http://localhost:8080/ and use __elk-demo__ as username and password
 
 ## Demo Walkthrough
@@ -26,5 +26,5 @@
 [Logstash]: http://www.elasticsearch.com/products/logstash/
 [Kibana]: http://www.elasticsearch.com/products/kibana/
 [Gitlist]: https://github.com/klaussilveira/gitlist
-[Install Docker]: https://docs.docker.com/installation/
-[Install Fig]: http://www.fig.sh/install.html
+[Install Docker Engine]: https://docs.docker.com/engine/installation/#installation
+[Install Docker compose]: https://docs.docker.com/compose/install/
