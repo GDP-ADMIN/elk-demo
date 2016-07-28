@@ -6,10 +6,9 @@ RUN apt-key adv --keyserver pgp.mit.edu --recv-keys 573BFD6B3D8FBC641079A6ABABF5
     echo "deb http://nginx.org/packages/debian/ wheezy nginx" >> /etc/apt/sources.list && \
     echo "deb http://http.debian.net/debian wheezy-backports main" >> /etc/apt/sources.list
 
-ENV NGINX_VERSION 1.6.2-1~wheezy
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update && apt-get install -y nginx=${NGINX_VERSION} curl php5-fpm git supervisor
+RUN apt-get update && apt-get install -y nginx curl php5-fpm git supervisor
 ADD nginx.conf /etc/nginx/nginx.conf
 ADD app /etc/nginx/sites-available/
 
