@@ -4,7 +4,7 @@ es:
 gitlist:
     build: gitlist-docker
     ports:
-        - "80:80"
+        - "8090:80"
 
 kibana:
     build: kibana-docker
