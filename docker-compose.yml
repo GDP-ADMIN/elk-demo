@@ -1,5 +1,5 @@
 es:
-    build: es-docker
+    image: elasticsearch:1.5
 
 gitlist:
     build: gitlist-docker
